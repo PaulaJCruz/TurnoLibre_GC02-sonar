@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
+from django.views.decorators.http import require_GET
 
 from .forms import FormularioEntrada
 from .roles import es_responsable, solo_responsable
@@ -13,6 +14,7 @@ class Entrar(LoginView):
 
 
 @login_required
+@require_GET
 def inicio(request):
     empleado = getattr(request.user, "empleado", None)
     return render(
