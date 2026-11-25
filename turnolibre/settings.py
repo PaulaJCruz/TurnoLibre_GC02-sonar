@@ -27,10 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # genera una aleatoria al arrancar; las sesiones abiertas se pierden al reiniciar.
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or get_random_secret_key()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# El modo de depuración está desactivado por defecto y solo se activa con la
+# variable de entorno DJANGO_DEBUG=1 (desarrollo local con runserver).
+DEBUG = os.environ.get("DJANGO_DEBUG") == "1"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition
