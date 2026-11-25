@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_GET, require_POST
 
 from cuadrante.models import Turno
 from cuentas.roles import es_responsable, solo_empleado
@@ -135,6 +135,7 @@ def siguiente_accion(solicitud, empleado):
 
 
 @login_required
+@require_GET
 def detalle(request, pk):
     """Detalle de la solicitud, también cuando ha terminado (US-009-AC-02, AC-07 y AC-08)."""
     caducar_vencidas()
